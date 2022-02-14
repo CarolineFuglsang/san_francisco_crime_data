@@ -1,3 +1,6 @@
 # Personal vscode settings
 .vscode/settings.json
 **.egg-info
+
+# ignoring raw data files in github
+/data/raw
