@@ -57,9 +57,10 @@ for i, cat_1 in enumerate(raw.category.unique()):
 #--------------------------------------------------------------------
 # label vs. category 
 # the label is unique within a category
-(raw.groupby(["category"])
+label_df = (raw.groupby(["category"])
     .agg(label_unique = ("label", lambda x: x.unique()))
     .reset_index()
+    .sort_values(by='label_unique')
 )
 
 # -----------------------------------------------------------------
