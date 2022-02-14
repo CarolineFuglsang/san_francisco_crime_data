@@ -42,31 +42,7 @@ def heatmap_label_across_districts(label, fraction = True):
 
 heatmap_label_across_districts('violent', False)
 
-# At what time of day does the crimes occur? 
-# plus also considering weekdays vs. weekends
-def heatmap_by_district_and_weekday(district, vmax):
-    df_district = (df.query(f'district == "{district}"')
-        .groupby(['label', 'hour', 'weekday'])
-        .agg(N = ('id', 'count')) 
-        .reset_index())
-
-    def draw_heatmap(*args, **kwargs):
-        data = kwargs.pop('data')
-        d = data.pivot(index=args[1], columns=args[0], values=args[2])
-        sns.heatmap(d, **kwargs, cmap = 'rocket_r')
-
-    cbar_ax = g.fig.add_axes([100, 10, 4, 7])
-    fg = sns.FacetGrid(df_district, 
-                        row='weekday',
-                        sharey=True,
-                        aspect = 6,
-                        height = 1, 
-                        row_order=['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'])
-    fg.map_dataframe(draw_heatmap, 'hour', 'label', 'N', cbar_ax = cbar_ax, square = False, cbar = True, vmin = 0, vmax = vmax)
-    
-    fg.fig.suptitle(f"District: {district}")
-
-
+# At what time of day and weekday does the crimes occur in the three districts?
 def heatmap_by_weekdays(district, vmax = 500):
     df_district = (df.query(f'district == "{district}"')
             .groupby(['label', 'hour', 'weekday'])
@@ -93,38 +69,4 @@ heatmap_by_weekdays('tenderloin', vmax = 500)
 heatmap_by_weekdays('sunnydale', vmax = 30)
 heatmap_by_weekdays('mission', vmax = 400)
 
-
-heatmap_by_district_and_weekday('tenderloin',vmax = 500)
-heatmap_by_district_and_weekday('sunnydale', vmax = 30)
-heatmap_by_district_and_weekday('mission', vmax = 400)
-
-
-# Heatmap by label and weekday
-# TODO use the same color bar 
-def heatmap_by_label_and_weekday(label, vmin=0, vmax=0):
-    n_crimes = (df.query(f'label == "{label}"')
-        .groupby(['district'])
-        .agg(N = ('id', 'count'))).to_dict()['N']
-
-    df_label = (df.query(f'label == "{label}"')
-        .groupby(['district', 'hour', 'weekday'])
-        .agg(N = ('id', 'count')) 
-        .reset_index()
-        .assign(
-            N_perc = lambda x: [x.N[i]/n_crimes[x.district[i]] for i in range(len(x.N))]))
-
-    def draw_heatmap(*args, **kwargs):
-        data = kwargs.pop('data')
-        d = data.pivot(index=args[1], columns=args[0], values=args[2])
-        sns.heatmap(d, **kwargs)
-
-    fg = sns.FacetGrid(df_label, row='weekday', sharey=True, aspect = 4, height = 2.5)
-    fg.map_dataframe(draw_heatmap, 'hour', 'district', 'N', cbar=True, square = False)
-    fg.fig.subplots_adjust(top=0.9)
-    fg.fig.suptitle(f"Label: {label}")
-
-heatmap_by_label_and_weekday('violent')
-heatmap_by_label_and_weekday('other')
-heatmap_by_label_and_weekday('prostitution')
-heatmap_by_label_and_weekday('intoxication')
 
