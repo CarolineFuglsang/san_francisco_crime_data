@@ -4,7 +4,7 @@ setup(
     name='src',
     packages=find_packages(),
     version='0.1.0',
-    description='san_fransisco_crime_data',
+    description='SF_crime_data',
     author='Caroline',
     license='MIT',
 )

@@ -1,4 +1,4 @@
-name: san_fransisco_crime_data
+name: SF_crime_data
 dependencies:
     - python=3.8
     - notebook
