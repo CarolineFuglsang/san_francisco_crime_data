@@ -59,6 +59,6 @@ time_plot((df.date.min(), "2012-12-31"))
 
 # Crime vs. time violent crime 
 time_plot(None, label = 'violent')
-time_plot(("2013-01-01", df.date.max()), label = 'violent')
+time_plot(("2013-01-01", df.date.max()), label = 'violent', ylim = (0,30))
 time_plot((df.date.min(), "2012-12-31"), label = 'violent')
 
