@@ -15,6 +15,7 @@ joined_df = (raw_sf.set_index('id')
             hour=lambda x: [int(x.time[i][0:2]) for i in range(len(x.time))],
             is_weekend = lambda x: [x.weekday[i] in ["friday", "saturday","sunday"] for i in range(x.shape[0])])
     .drop(columns = ['description', 'longitude', 'latitude'])        
+    .query("date < '2018-05-15'")
     )
     
 
