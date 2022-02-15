@@ -3,6 +3,7 @@ pandas
 torch
 scikit-learn==0.24.2
 matplotlib
+optuna
 seaborn
 --editable .
 pytorch-lightning >= 1.5.0
