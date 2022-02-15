@@ -16,7 +16,13 @@ joined_df = (raw_sf.set_index('id')
             is_weekend = lambda x: [x.weekday[i] in ["friday", "saturday","sunday"] for i in range(x.shape[0])])
     .drop(columns = ['description', 'longitude', 'latitude'])        
     .query("date < '2018-05-15'")
-    )
-    
+    )    
 
 joined_df.to_csv("data/processed/sf_data_processed.csv", index = False)
+
+
+# subsetting to a smaller dataset from 2013 to 2018
+(joined_df
+    .query("date >= '2013-01-01'")
+    .to_csv("data/processed/sf_data_processed_2013_2018.csv", index = False)
+)
