@@ -7,7 +7,7 @@ import src.visualizations.plot_utils as plt_utils
 
 df = pd.read_csv("data/processed/sf_data_processed.csv")
 
-def time_plot(date_tuple = None, label = None):
+def time_plot(date_tuple = None, label = None, ylim = (0,140)):
 
     # number of crimes on each date 
     if label is not None: 
@@ -50,6 +50,7 @@ def time_plot(date_tuple = None, label = None):
     plt.title(f"Number of {label} Crimes per Day")
     plt.ylabel("Number of Crimes")
     plt.xlabel("Date")
+    plt.ylim(ylim)
 
 # Crime vs. time all types of crime 
 time_plot(None)
