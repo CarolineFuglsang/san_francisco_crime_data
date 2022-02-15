@@ -68,8 +68,8 @@ def plot_N_crime_category(df, fraction = False):
             x = "N_perc", 
             y = 'category',
             col = 'district', 
-            hue = 'label', legend=False, dodge = False, 
-            palette=plt_utils.custom_palette(n_colors=4, specific_col_idx=[0, 9, 6, 4]))
+            hue = 'label', legend=True, dodge = False, 
+            palette=plt_utils.custom_palette(n_colors=4, specific_col_idx=[4, 9, 6, 0]))
     else:
         g = sns.catplot(
             data = dist_crime_cat, 
@@ -80,7 +80,7 @@ def plot_N_crime_category(df, fraction = False):
             hue = 'label',
             legend=False,
             dodge = False, 
-            palette=plt_utils.custom_palette(n_colors=4, specific_col_idx=[0, 9, 6, 4]))
+            palette=plt_utils.custom_palette(n_colors=4, specific_col_idx=[4, 9, 6, 0]))
 
 plot_N_crime_category(df, fraction = True)
 plot_N_crime_category(df, fraction = False)
