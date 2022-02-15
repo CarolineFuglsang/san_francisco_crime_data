@@ -1,0 +1,2 @@
+lr,num_hidden_list,p_dropout
+0.0001,"[3, 6]",0.2
