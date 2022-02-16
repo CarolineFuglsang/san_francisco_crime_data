@@ -8,7 +8,7 @@ cp = plt_utils.custom_palette(n_colors=6)
 
 init_df = pd.read_csv("data/processed/sf_data_processed.csv")
 
-df = init_df.query("label == 'violent'")
+df = init_df.query("label == 'violent'").query("date >= '2013-01-01'")
 
 # At what time of day does the crimes occur?
 district = 'sunnydale' 
@@ -68,15 +68,16 @@ def heatmap_by_weekdays(district, vmax = 500):
             s.set_xlabel('')
     plt.suptitle(f'Violent crime in {district}')
 
-heatmap_by_weekdays('tenderloin', vmax = 500)
-heatmap_by_weekdays('sunnydale', vmax = 30)
-heatmap_by_weekdays('mission', vmax = 400)
+heatmap_by_weekdays('tenderloin', vmax = 250)
+heatmap_by_weekdays('sunnydale', vmax = 25)
+heatmap_by_weekdays('mission', vmax = 180)
 
 #%%
 # At what time of day and weekday does the crimes occur in the three districts?
 # all crime
 def heatmap_by_weekdays_all_crime(district, vmax = 500):
     df_district = (init_df.query(f'district == "{district}"')
+            .query("date >= '2013-01-01'")
             .groupby(['hour', 'weekday'])
             .agg(N = ('id', 'count')) 
             .reset_index())
@@ -97,9 +98,9 @@ def heatmap_by_weekdays_all_crime(district, vmax = 500):
             s.set_xlabel('')
     plt.suptitle(f'Crime in {district}')
 
-heatmap_by_weekdays_all_crime('tenderloin', vmax = 3500)
-heatmap_by_weekdays_all_crime('sunnydale', vmax = 150)
-heatmap_by_weekdays_all_crime('mission', vmax = 2500)
+heatmap_by_weekdays_all_crime('tenderloin', vmax = 1200)
+heatmap_by_weekdays_all_crime('sunnydale', vmax = 70)
+heatmap_by_weekdays_all_crime('mission', vmax = 950)
 
 
 # %%
